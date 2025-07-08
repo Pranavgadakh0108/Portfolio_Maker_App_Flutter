@@ -63,7 +63,6 @@ class _SocialLinksState extends State<SocialLinks> {
 
                     CustomTextFormField(
                       controller: linkedInController,
-                      maxLines: 2,
                       hintText: "Enter Your LinkedIn Profile Link URL",
                       icon: FontAwesomeIcons.linkedin,
                       keyboardType: TextInputType.text,
@@ -83,7 +82,6 @@ class _SocialLinksState extends State<SocialLinks> {
 
                     CustomTextFormField(
                       controller: githubController,
-                      maxLines: 2,
                       hintText: "Enter Your GitHub Profile Link URL",
                       icon: FontAwesomeIcons.github,
                       keyboardType: TextInputType.text,
@@ -103,7 +101,6 @@ class _SocialLinksState extends State<SocialLinks> {
 
                     CustomTextFormField(
                       controller: portfolioController,
-                      maxLines: 2,
                       hintText: "Enter Your Portfolio Link URL",
                       icon: FontAwesomeIcons.brandsFontAwesome,
                       keyboardType: TextInputType.text,
@@ -123,7 +120,6 @@ class _SocialLinksState extends State<SocialLinks> {
 
                     CustomTextFormField(
                       controller: instagramController,
-                      maxLines: 2,
                       hintText: "Enter Your Instagram Link URL",
                       icon: FontAwesomeIcons.instagram,
                       keyboardType: TextInputType.text,
@@ -143,7 +139,6 @@ class _SocialLinksState extends State<SocialLinks> {
 
                     CustomTextFormField(
                       controller: twitterController,
-                      maxLines: 2,
                       hintText: "Enter Your Twitter Link URL",
                       icon: FontAwesomeIcons.twitter,
                       keyboardType: TextInputType.text,

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:portfolio_creator/ui/page2.dart';
+import 'package:portfolio_creator/ui/page7.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
 import 'package:portfolio_creator/widget/project_img.dart';
 
@@ -12,10 +12,9 @@ class Projects extends StatefulWidget {
 }
 
 class _ProjectsState extends State<Projects> {
-
   final GlobalKey<FormState> _globalKey = GlobalKey();
-  var nameController = TextEditingController();
-  var descController = TextEditingController();
+  var projectNameController = TextEditingController();
+  var projDescController = TextEditingController();
   var techStackController = TextEditingController();
   var projectUrlController = TextEditingController();
 
@@ -59,16 +58,16 @@ class _ProjectsState extends State<Projects> {
                         ),
                       ),
                     ),
-                    
+
                     CustomTextFormField(
-                      controller: nameController,
+                      controller: projectNameController,
                       hintText: "Enter Your Project Title",
                       icon: Icons.task_outlined,
                       keyboardType: TextInputType.text,
                       labelText: "Project Title",
                       onChanged: (value) {
                         setState(() {
-                          nameController.text = value;
+                          projectNameController.text = value;
                         });
                       },
                       validator: (value) {
@@ -80,7 +79,7 @@ class _ProjectsState extends State<Projects> {
                     ),
 
                     CustomTextFormField(
-                      controller: descController,
+                      controller: projDescController,
                       maxLines: 3,
                       hintText: "Enter Your Project Description",
                       icon: Icons.description_outlined,
@@ -88,7 +87,7 @@ class _ProjectsState extends State<Projects> {
                       labelText: "Project Description",
                       onChanged: (value) {
                         setState(() {
-                          descController.text = value;
+                          projDescController.text = value;
                         });
                       },
                       validator: (value) {
@@ -117,8 +116,6 @@ class _ProjectsState extends State<Projects> {
                         return null;
                       },
                     ),
-                    
-                    
 
                     CustomTextFormField(
                       controller: projectUrlController,
@@ -139,22 +136,21 @@ class _ProjectsState extends State<Projects> {
                       },
                     ),
 
-                    Center(
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           SizedBox(height: 5),
                           Text('Upload Project Image'),
                           SizedBox(height: 5),
                           SizedBox(
-                            height: 140,
-                            width: MediaQuery.of(context).size.width * 0.7,
+                            height: 200,
+                            width: MediaQuery.of(context).size.width * 1,
                             child: ProjectImg(),
                           ),
                         ],
                       ),
                     ),
-                    
 
                     Center(
                       child: ElevatedButton(
@@ -162,7 +158,7 @@ class _ProjectsState extends State<Projects> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => SocialLinks(),
+                              builder: (context) => Certifications(),
                             ),
                           );
                         },
@@ -190,8 +186,6 @@ class _ProjectsState extends State<Projects> {
           ],
         ),
       ),
- 
     );
   }
 }
-

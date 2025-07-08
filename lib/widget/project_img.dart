@@ -52,19 +52,19 @@ class _CameraWidgetState extends State<ProjectImg> {
           onTap: captureImage,
           child: Center(
             child: Container(
-              height: 200,
-              width: MediaQuery.of(context).size.width * 0.7,
+              height: MediaQuery.of(context).size.height *1,
+              width: MediaQuery.of(context).size.width * 1,
               decoration: BoxDecoration(
                 color: Colors.white,
                 border: Border.all(color: Colors.black45, width: 2),
                 borderRadius: BorderRadius.circular(
                   20,
-                ), // Changed from 120 to 20
+                ), 
               ),
               child: imageFile == null
                   ? const Icon(Icons.camera_alt_outlined, size: 50, color: Colors.grey)
                   : ClipRRect(
-                      borderRadius: BorderRadius.circular(20),
+                      borderRadius: BorderRadius.circular(18),
                       child: Image.file(
                         File(imageFile!.path),
                         fit: BoxFit.cover,
