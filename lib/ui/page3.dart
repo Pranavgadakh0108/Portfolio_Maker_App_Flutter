@@ -26,6 +26,13 @@ class _SkillsPageState extends State<SkillsPage> {
             color: Colors.white,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ), // Custom back icon
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.purple,
         elevation: 5,
         centerTitle: true,
@@ -40,7 +47,7 @@ class _SkillsPageState extends State<SkillsPage> {
               child: Text(
                 '3. Select Skills',
                 style: TextStyle(
-                  color: Colors.black54,
+                  color: Colors.black87,
                   fontSize: 17,
                   fontWeight: FontWeight.w600,
                 ),
@@ -112,8 +119,12 @@ class _SkillsPageState extends State<SkillsPage> {
                   foregroundColor: Colors.white,
                 ),
                 child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
+                  // padding: const EdgeInsets.symmetric(
+                  //   horizontal: 130,
+                  //   vertical: 10,
+                  // ),
+                  padding: EdgeInsets.symmetric(
+                    horizontal: MediaQuery.of(context).size.width * 0.31,
                     vertical: 10,
                   ),
                   child: Text("Next Page", style: TextStyle(fontSize: 13)),

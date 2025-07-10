@@ -31,6 +31,13 @@ class _ProjectsState extends State<Projects> {
             color: Colors.white,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ), // Custom back icon
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.purple,
         elevation: 5,
         centerTitle: true,
@@ -52,7 +59,7 @@ class _ProjectsState extends State<Projects> {
                       child: Text(
                         '6. Projects',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black87,
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
                         ),
@@ -140,9 +147,7 @@ class _ProjectsState extends State<Projects> {
                       padding: const EdgeInsets.symmetric(horizontal: 16.0),
                       child: Column(
                         children: [
-                          SizedBox(height: 5),
-                          Text('Upload Project Image'),
-                          SizedBox(height: 5),
+                          SizedBox(height: 10),
                           SizedBox(
                             height: 200,
                             width: MediaQuery.of(context).size.width * 1,
@@ -167,8 +172,12 @@ class _ProjectsState extends State<Projects> {
                           foregroundColor: Colors.white,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
+                          // padding: const EdgeInsets.symmetric(
+                          //   horizontal: 130,
+                          //   vertical: 10,
+                          // ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal:MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(

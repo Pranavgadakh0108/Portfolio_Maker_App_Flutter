@@ -75,7 +75,7 @@ class _CameraWidgetState extends State<CameraWidget> {
             ),
             Positioned(
               top: 70,
-              left: 170,
+              left: 80,
               child: GestureDetector(
                 onTap: captureImage,
                 child: Icon(Icons.camera_alt, size: 30),

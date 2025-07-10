@@ -35,6 +35,13 @@ class _AwardsState extends State<Awards> {
             color: Colors.white,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ), // Custom back icon
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.purple,
         elevation: 5,
         centerTitle: true,
@@ -56,54 +63,72 @@ class _AwardsState extends State<Awards> {
                       child: Text(
                         '8. Awards & Achievements',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black87,
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 35),
-                      child: Text(
-                        "Do you have any Award or Achievement?",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
-                        ),
-                      ),
-                    ),
 
                     Padding(
-                      padding: const EdgeInsets.only(left: 35),
-                      child: Row(
-                        children: [
-                          Radio<String>(
-                            value: 'Yes',
-                            groupValue: _haveAward,
-                            onChanged: (value) {
-                              setState(() {
-                                _haveAward = value;
-                              });
-                            },
+                      // padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.04,
+                        vertical: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        value: _haveAward,
+                        dropdownColor: Colors.white,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          Text('Yes'),
-                          SizedBox(width: 20),
-                          Radio<String>(
-                            value: 'No',
-                            groupValue: _haveAward,
-                            onChanged: (value) {
-                              setState(() {
-                                _haveAward = value;
-                              });
-                            },
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.black45),
+                            borderRadius: BorderRadius.circular(12),
                           ),
-                          Text('No'),
+                          disabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.black38),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.purple,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(12),
+                          ), // Optional border
+                          //contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height * 0.02,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.03,
+                          ),
+                        ),
+                        hint: Text("Do you have any Award?"),
+                        items: [
+                          DropdownMenuItem(value: 'Yes', child: Text('Yes')),
+                          DropdownMenuItem(value: 'No', child: Text('No')),
                         ],
+                        onChanged: (value) {
+                          setState(() {
+                            _haveAward = value;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select an option';
+                          }
+                          return null;
+                        },
                       ),
                     ),
-                    SizedBox(height: 10),
+                    //SizedBox(height: 10),
                     if (_haveAward == 'Yes')
                       Column(
                         children: [
@@ -125,7 +150,7 @@ class _AwardsState extends State<Awards> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          //SizedBox(height: 10),
                           CustomTextFormField(
                             controller: awardOrgController,
                             hintText: "Enter Award Issuing Organization",
@@ -144,7 +169,7 @@ class _AwardsState extends State<Awards> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          //SizedBox(height: 10),
                           CustomDateField(
                             controller: awardIssueDateController,
                             hintText: "dd-MM-yyyy",
@@ -177,7 +202,7 @@ class _AwardsState extends State<Awards> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          //SizedBox(height: 10),
                           CustomTextFormField(
                             controller: awardDescController,
                             maxLines: 3,
@@ -207,7 +232,7 @@ class _AwardsState extends State<Awards> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => Testimonials(),
+                              builder: (context) => HobbiesPage(),
                             ),
                           );
                         },
@@ -216,8 +241,12 @@ class _AwardsState extends State<Awards> {
                           foregroundColor: Colors.white,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
+                          // padding: const EdgeInsets.symmetric(
+                          //   horizontal: 130,
+                          //   vertical: 10,
+                          // ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal:MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(

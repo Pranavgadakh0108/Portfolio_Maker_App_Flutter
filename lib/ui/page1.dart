@@ -33,6 +33,13 @@ class _PersonalDetailsState extends State<PersonalDetails> {
             color: Colors.white,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ), // Custom back icon
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.purple,
         elevation: 5,
         centerTitle: true,
@@ -54,24 +61,29 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                       child: Text(
                         '1. Personal Details',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black87,
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
+                    // Center(
+                    //   child: Column(
+                    //     children: [
+                    //       SizedBox(height: 5),
+                    //       SizedBox(
+                    //         height: 140,
+                    //         width: MediaQuery.of(context).size.width * 0.7,
+                    //         child: CameraWidget(),
+                    //       ),
+                    //     ],
+                    //   ),
+                    // ),
                     Center(
-                      child: Column(
-                        children: [
-                          SizedBox(height: 5),
-                          Text('Upload Profile Picture'),
-                          SizedBox(height: 5),
-                          SizedBox(
-                            height: 140,
-                            width: MediaQuery.of(context).size.width * 0.7,
-                            child: CameraWidget(),
-                          ),
-                        ],
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height *0.15,
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        child: CameraWidget(),
                       ),
                     ),
                     CustomTextFormField(
@@ -114,7 +126,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
                     CustomTextFormField(
                       controller: bioController,
-                      maxLines: 4,
+                      maxLines: 2,
                       hintText: "Write a short Bio",
                       icon: Icons.info_outlined,
                       keyboardType: TextInputType.text,
@@ -210,8 +222,13 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                           foregroundColor: Colors.white,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
+                          // padding: const EdgeInsets.symmetric(
+                          //   horizontal: 130,
+                          //   vertical: 10,
+                          // ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(

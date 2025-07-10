@@ -56,13 +56,20 @@ class _CameraWidgetState extends State<ProjectImg> {
               width: MediaQuery.of(context).size.width * 1,
               decoration: BoxDecoration(
                 color: Colors.white,
-                border: Border.all(color: Colors.black45, width: 2),
+                border: Border.all(color: Colors.black45, ),
                 borderRadius: BorderRadius.circular(
                   20,
                 ), 
               ),
               child: imageFile == null
-                  ? const Icon(Icons.camera_alt_outlined, size: 50, color: Colors.grey)
+                  ? Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      
+                      const Icon(Icons.camera_alt_outlined, size: 50, color: Colors.grey),
+                      Text('Upload Project Image', style: TextStyle(color: Colors.black54),),
+                    ],
+                  )
                   : ClipRRect(
                       borderRadius: BorderRadius.circular(18),
                       child: Image.file(

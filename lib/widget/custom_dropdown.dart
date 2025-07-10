@@ -7,7 +7,7 @@ class CustomDropDown extends StatelessWidget {
     required this.hintText,
     required this.items,
     required this.onChanged,
-    required this.icon
+    required this.icon,
   });
 
   final String? labelText;
@@ -19,7 +19,11 @@ class CustomDropDown extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16.0),
+      //padding: const EdgeInsets.all(16.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.04,
+        vertical: MediaQuery.of(context).size.height * 0.01,
+      ),
       child: DropdownButtonFormField<dynamic>(
         dropdownColor: Colors.white,
         isExpanded: true,
@@ -27,9 +31,9 @@ class CustomDropDown extends StatelessWidget {
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           label: Text(labelText ?? ""),
           prefixIcon: Icon(icon),
-          
+
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.black45),
             borderRadius: BorderRadius.circular(12),
           ),
           disabledBorder: OutlineInputBorder(
@@ -43,7 +47,7 @@ class CustomDropDown extends StatelessWidget {
           errorBorder: OutlineInputBorder(
             borderSide: const BorderSide(color: Colors.red),
             borderRadius: BorderRadius.circular(12),
-          )
+          ),
         ),
         items: items,
         onChanged: onChanged,

@@ -20,6 +20,7 @@ class ProfilePage extends StatelessWidget {
             color: Colors.white,
           ),
         ),
+        
         centerTitle: true,
         elevation: 3,
         actions: [

@@ -25,7 +25,11 @@ class CustomDateField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      //padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.04,
+        vertical: MediaQuery.of(context).size.height * 0.01,
+      ),
       child: TextFormField(
         autocorrect: true,
         controller: controller,
@@ -33,7 +37,7 @@ class CustomDateField extends StatelessWidget {
         decoration: InputDecoration(
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.black45),
             borderRadius: BorderRadius.circular(12),
           ),
           disabledBorder: OutlineInputBorder(

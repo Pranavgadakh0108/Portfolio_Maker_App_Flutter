@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 final RegExp emailRegex = RegExp(
   r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
 );
@@ -156,7 +158,6 @@ final List<String> hobbies = [
   'Open Source Contribution',
   'Competitive Programming',
   'Attending Hackathons',
-  'Learning New Programming Languages',
   'Freelancing Tech Projects',
   'Tech Blogging',
   'Reading Tech News',
@@ -184,4 +185,13 @@ List<String> preferredContactMethod = [
   'Phone',
   'LinkedIn',
   'WhatsApp',
+];
+
+final List<IconData> hobbyIcons = [
+  Icons.sports_soccer,
+  Icons.music_note,
+  Icons.menu_book,
+  Icons.flight,
+  Icons.restaurant,
+  Icons.videogame_asset,
 ];

@@ -10,7 +10,7 @@ class CustomTextFormField extends StatelessWidget {
     this.onChanged,
     this.keyboardType,
     this.validator,
-    this.maxLines
+    this.maxLines,
   });
 
   final TextEditingController controller;
@@ -25,20 +25,28 @@ class CustomTextFormField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      //padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 10.0),
+      padding: EdgeInsets.symmetric(
+        horizontal: MediaQuery.of(context).size.width * 0.04,
+        vertical: MediaQuery.of(context).size.height * 0.012,
+      ),
       child: TextFormField(
         autocorrect: true,
         maxLines: maxLines,
         controller: controller,
         cursorColor: Colors.blue,
         decoration: InputDecoration(
-          contentPadding: const EdgeInsets.symmetric(
-            vertical: 16,
-            horizontal: 12,
+          // contentPadding: const EdgeInsets.symmetric(
+          //   vertical: 16,
+          //   horizontal: 12,
+          // ),
+          contentPadding: EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02,
+            horizontal: MediaQuery.of(context).size.width * 0.03,
           ),
           border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
           enabledBorder: OutlineInputBorder(
-            borderSide: const BorderSide(color: Colors.black),
+            borderSide: const BorderSide(color: Colors.black45),
             borderRadius: BorderRadius.circular(12),
           ),
           disabledBorder: OutlineInputBorder(
@@ -55,6 +63,7 @@ class CustomTextFormField extends StatelessWidget {
           ),
           hintText: hintText,
           hintStyle: const TextStyle(color: Colors.black26, fontSize: 14),
+          //alignLabelWithHint: true,
           labelText: labelText,
           labelStyle: const TextStyle(color: Colors.black, fontSize: 16),
           prefixIcon: Icon(icon),

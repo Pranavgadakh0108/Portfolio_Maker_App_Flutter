@@ -32,6 +32,13 @@ class _EducationDetailsState extends State<EducationDetails> {
             color: Colors.white,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ), // Custom back icon
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.purple,
         elevation: 5,
         centerTitle: true,
@@ -49,7 +56,7 @@ class _EducationDetailsState extends State<EducationDetails> {
                   child: Text(
                     '4. Education Details',
                     style: TextStyle(
-                      color: Colors.black54,
+                      color: Colors.black87,
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
                     ),
@@ -115,7 +122,7 @@ class _EducationDetailsState extends State<EducationDetails> {
                   icon: Icons.calendar_month_outlined,
                 ),
 
-                SizedBox(height: 4,),
+                //SizedBox(height: 4),
                 CustomTextFormField(
                   controller: expController,
                   maxLines: 3,
@@ -135,7 +142,7 @@ class _EducationDetailsState extends State<EducationDetails> {
                     return null;
                   },
                 ),
-                SizedBox(height: 10,),
+                //SizedBox(height: 10),
                 CustomTextFormField(
                   controller: achievementController,
                   maxLines: 3,
@@ -171,8 +178,12 @@ class _EducationDetailsState extends State<EducationDetails> {
                       foregroundColor: Colors.white,
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
+                      // padding: const EdgeInsets.symmetric(
+                      //   horizontal: 130,
+                      //   vertical: 10,
+                      // ),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.31,
                         vertical: 10,
                       ),
                       child: Text("Next Page", style: TextStyle(fontSize: 13)),

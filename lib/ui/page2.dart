@@ -32,6 +32,13 @@ class _SocialLinksState extends State<SocialLinks> {
             color: Colors.white,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ), // Custom back icon
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.purple,
         elevation: 5,
         centerTitle: true,
@@ -54,7 +61,7 @@ class _SocialLinksState extends State<SocialLinks> {
                       child: Text(
                         '2. Social Links',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black87,
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
                         ),
@@ -171,8 +178,12 @@ class _SocialLinksState extends State<SocialLinks> {
                           foregroundColor: Colors.white,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
+                          // padding: const EdgeInsets.symmetric(
+                          //   horizontal: 130,
+                          //   vertical: 10,
+                          // ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal:MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(

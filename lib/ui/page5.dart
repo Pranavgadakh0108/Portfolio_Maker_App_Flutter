@@ -37,6 +37,13 @@ class _WorkExperienceState extends State<WorkExperience> {
             color: Colors.white,
           ),
         ),
+        leading: IconButton(
+          icon: Icon(
+            Icons.arrow_back_ios_new_outlined,
+            color: Colors.white,
+          ), // Custom back icon
+          onPressed: () => Navigator.pop(context),
+        ),
         backgroundColor: Colors.purple,
         elevation: 5,
         centerTitle: true,
@@ -58,54 +65,72 @@ class _WorkExperienceState extends State<WorkExperience> {
                       child: Text(
                         '5. Work Experience',
                         style: TextStyle(
-                          color: Colors.black54,
+                          color: Colors.black87,
                           fontSize: 17,
                           fontWeight: FontWeight.w600,
                         ),
                       ),
                     ),
                     SizedBox(height: 10),
+
                     Padding(
-                      padding: const EdgeInsets.only(left: 35),
-                      child: Text(
-                        "Do you have work experience?",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                      //padding: const EdgeInsets.all(16.0),
+                      padding: EdgeInsets.symmetric(
+                        horizontal: MediaQuery.of(context).size.width * 0.04,
+                        vertical: MediaQuery.of(context).size.height * 0.01,
+                      ),
+                      child: DropdownButtonFormField<String>(
+                        value: _hasExperience,
+                        dropdownColor: Colors.white,
+                        decoration: InputDecoration(
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.black45),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          disabledBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.black38),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(
+                              color: Colors.purple,
+                              width: 2,
+                            ),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          errorBorder: OutlineInputBorder(
+                            borderSide: const BorderSide(color: Colors.red),
+                            borderRadius: BorderRadius.circular(12),
+                          ), // Optional border
+                          // contentPadding: EdgeInsets.symmetric(horizontal: 16),
+                          contentPadding: EdgeInsets.symmetric(
+                            vertical: MediaQuery.of(context).size.height * 0.02,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.03,
+                          ),
                         ),
+                        hint: Text("Do you have work experience?"),
+                        items: [
+                          DropdownMenuItem(value: 'Yes', child: Text('Yes')),
+                          DropdownMenuItem(value: 'No', child: Text('No')),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            _hasExperience = value;
+                          });
+                        },
+                        validator: (value) {
+                          if (value == null) {
+                            return 'Please select an option';
+                          }
+                          return null;
+                        },
                       ),
                     ),
 
-                    Padding(
-                      padding: const EdgeInsets.only(left: 35),
-                      child: Row(
-                        children: [
-                          Radio<String>(
-                            value: 'Yes',
-                            groupValue: _hasExperience,
-                            onChanged: (value) {
-                              setState(() {
-                                _hasExperience = value;
-                              });
-                            },
-                          ),
-                          Text('Yes'),
-                          SizedBox(width: 20),
-                          Radio<String>(
-                            value: 'No',
-                            groupValue: _hasExperience,
-                            onChanged: (value) {
-                              setState(() {
-                                _hasExperience = value;
-                              });
-                            },
-                          ),
-                          Text('No'),
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 10),
                     if (_hasExperience == 'Yes')
                       Column(
                         children: [
@@ -127,7 +152,7 @@ class _WorkExperienceState extends State<WorkExperience> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          // SizedBox(height: 10),
                           CustomTextFormField(
                             controller: companyNameController,
                             hintText: "Enter Your Company Name",
@@ -146,7 +171,7 @@ class _WorkExperienceState extends State<WorkExperience> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          //SizedBox(height: 10),
                           CustomDateField(
                             controller: startDateController,
                             hintText: "dd-MM-yyyy",
@@ -179,7 +204,7 @@ class _WorkExperienceState extends State<WorkExperience> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          //SizedBox(height: 10),
                           CustomDateField(
                             controller: endDateController,
                             hintText: "dd-MM-yyyy",
@@ -212,7 +237,7 @@ class _WorkExperienceState extends State<WorkExperience> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          //SizedBox(height: 10),
                           CustomTextFormField(
                             controller: locationController,
                             hintText: "Enter Your Company Location",
@@ -231,7 +256,7 @@ class _WorkExperienceState extends State<WorkExperience> {
                               return null;
                             },
                           ),
-                          SizedBox(height: 10),
+                          //SizedBox(height: 10),
                           CustomTextFormField(
                             controller: responsibilitiesController,
                             hintText: "Enter Your Responsibilities",
@@ -261,9 +286,7 @@ class _WorkExperienceState extends State<WorkExperience> {
                         onPressed: () {
                           Navigator.push(
                             context,
-                            MaterialPageRoute(
-                              builder: (context) => Projects(),
-                            ),
+                            MaterialPageRoute(builder: (context) => Projects()),
                           );
                         },
                         style: ElevatedButton.styleFrom(
@@ -271,8 +294,12 @@ class _WorkExperienceState extends State<WorkExperience> {
                           foregroundColor: Colors.white,
                         ),
                         child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
+                          // padding: const EdgeInsets.symmetric(
+                          //   horizontal: 130,
+                          //   vertical: 10,
+                          // ),
+                          padding: EdgeInsets.symmetric(
+                            horizontal:MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(
