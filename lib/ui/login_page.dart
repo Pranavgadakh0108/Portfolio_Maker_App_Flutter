@@ -1,9 +1,13 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/data/appdata.dart';
+import 'package:portfolio_creator/database/database_helper.dart';
 import 'package:portfolio_creator/ui/myhome_page.dart';
 import 'package:portfolio_creator/ui/profile_page.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
 import 'package:portfolio_creator/widget/custom_password.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({super.key});
@@ -19,6 +23,42 @@ class _LoginPageState extends State<LoginPage> {
   var confirmPasswordController = TextEditingController();
 
   final GlobalKey<FormState> _globalKey = GlobalKey();
+  final DatabaseHelper _dbHelper = DatabaseHelper();
+
+  void loginUser() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    if (email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('Enter Email and Password First')));
+    }
+
+    try {
+      final user = await _dbHelper.signIn(email, password);
+      if (user != null) {
+        SharedPreferences sharedPreferences =
+            await SharedPreferences.getInstance();
+
+        sharedPreferences.setString('email', email);
+
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('You are Logged In..!!')));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => ProfilePage()),
+        );
+      } else {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Invalid Email or Password')));
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,14 +70,14 @@ class _LoginPageState extends State<LoginPage> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               ClipRRect(
-                child: Image.network(
-                  "https://img.freepik.com/free-vector/secure-login-concept-illustration_114360-4511.jpg",
+                child: Image.asset(
+                  "assets/images/login.avif",
                   height: 350,
                   width: 350,
                   fit: BoxFit.cover,
                 ),
               ),
-          
+
               Padding(
                 padding: const EdgeInsets.all(20),
                 child: Form(
@@ -65,7 +105,7 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                       ),
-          
+
                       CustomPassword(
                         controller: passwordController,
                         hintText: "Enter Your Password",
@@ -87,17 +127,12 @@ class _LoginPageState extends State<LoginPage> {
                           return null;
                         },
                       ),
-          
+
                       SizedBox(height: 10),
                       ElevatedButton(
                         onPressed: () {
                           if (_globalKey.currentState!.validate()) {
-                            Navigator.pushReplacement(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => ProfilePage(),
-                              ),
-                            );
+                            loginUser();
                           }
                         },
                         style: ElevatedButton.styleFrom(
@@ -128,12 +163,17 @@ class _LoginPageState extends State<LoginPage> {
                             onTap: () {
                               Navigator.pushReplacement(
                                 context,
-                                MaterialPageRoute(builder: (context) => MyHomePage()),
+                                MaterialPageRoute(
+                                  builder: (context) => MyHomePage(),
+                                ),
                               );
                             },
                             child: Text(
                               " Sign Up",
-                              style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                              style: TextStyle(
+                                color: Colors.blue,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],

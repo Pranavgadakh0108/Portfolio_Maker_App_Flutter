@@ -1,5 +1,8 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/data/appdata.dart';
+import 'package:portfolio_creator/database/database_helper.dart';
 import 'package:portfolio_creator/ui/login_page.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
 import 'package:portfolio_creator/widget/custom_password.dart';
@@ -19,6 +22,41 @@ class _MyHomePageState extends State<MyHomePage> {
 
   final GlobalKey<FormState> _globalKey = GlobalKey();
 
+  final DatabaseHelper _dbHelper = DatabaseHelper();
+
+  void registerUser() async {
+    final username = usernameController.text.trim();
+    final email = emailController.text.trim();
+    final password = passwordController.text.trim();
+
+    if (username.isEmpty || email.isEmpty || password.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Enter username/email/password First')),
+      );
+    }
+
+    try {
+      bool exist = await _dbHelper.checkUserExist(email);
+
+      if (exist) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Email Already Exist')));
+      } else {
+        await _dbHelper.signup(username, email, password);
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text('Account Created Successfully')));
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => LoginPage()),
+        );
+      }
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('$e')));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,8 +67,8 @@ class _MyHomePageState extends State<MyHomePage> {
           children: [
             SizedBox(height: 80),
             ClipRRect(
-              child: Image.network(
-                "https://img.freepik.com/free-vector/sign-up-concept-illustration_114360-7875.jpg?semt=ais_hybrid&w=740",
+              child: Image.asset(
+                "assets/images/signup.avif",
                 height: 300,
                 width: 300,
                 fit: BoxFit.cover,
@@ -133,12 +171,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     ElevatedButton(
                       onPressed: () {
                         if (_globalKey.currentState!.validate()) {
-                          Navigator.pushReplacement(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => LoginPage(),
-                            ),
-                          );
+                          registerUser();
                         }
                       },
                       style: ElevatedButton.styleFrom(
@@ -169,12 +202,17 @@ class _MyHomePageState extends State<MyHomePage> {
                           onTap: () {
                             Navigator.pushReplacement(
                               context,
-                              MaterialPageRoute(builder: (context) => LoginPage()),
+                              MaterialPageRoute(
+                                builder: (context) => LoginPage(),
+                              ),
                             );
                           },
                           child: Text(
                             ' LogIn',
-                            style: TextStyle(color: Colors.blue, fontWeight: FontWeight.bold),
+                            style: TextStyle(
+                              color: Colors.blue,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ],
