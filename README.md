@@ -1,16 +1,32 @@
-# portfolio_creator
+# Portfolio Maker App - Flutter 🚀
 
-A new Flutter project.
+A fully customizable Flutter app that helps users build their professional portfolio with ease. This app allows adding personal information, skills, education, work experience, projects, social links, and more in a structured and attractive format.
 
-## Getting Started
+## ✨ Features
 
-This project is a starting point for a Flutter application.
+- 👤 Add Personal Info (Name, Contact, Bio, etc.)
+- 🎯 Skills Section (Technical & Soft Skills)
+- 🎓 Education Details
+- 🧑‍💼 Work Experience Entries
+- 💼 Projects with Descriptions
+- 🌐 Social Media Links
+- 📄 Resume-style Preview (if available)
+- 💬 "Hire Me" / Contact Section
+- 🔄 Easy Navigation with Bottom Navigation Bar
+- 🌓 Dark & Light Theme Support (optional)
 
-A few resources to get you started if this is your first Flutter project:
+## 🛠️ Tech Stack
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+- **Flutter**: Cross-platform mobile framework
+- **Dart**: Primary programming language
+- **GetX / Provider**: (If used, mention state management library)
+- **Google Fonts, FontAwesome, etc.**: For UI enhancements
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Installation
+- git clone https://github.com/Pranavgadakh0108/Portfolio_Maker_App_Flutter.git
+- cd Portfolio_Maker_App_Flutter
+- flutter pub get
+- flutter run
+
+
+
