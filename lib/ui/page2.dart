@@ -15,7 +15,7 @@ class _SocialLinksState extends State<SocialLinks> {
 
   var linkedInController = TextEditingController();
   var githubController = TextEditingController();
-  var portfolioController = TextEditingController();
+
   var instagramController = TextEditingController();
   var twitterController = TextEditingController();
 
@@ -107,25 +107,6 @@ class _SocialLinksState extends State<SocialLinks> {
                     ),
 
                     CustomTextFormField(
-                      controller: portfolioController,
-                      hintText: "Enter Your Portfolio Link URL",
-                      icon: FontAwesomeIcons.brandsFontAwesome,
-                      keyboardType: TextInputType.text,
-                      labelText: "Portfolio URL",
-                      onChanged: (value) {
-                        setState(() {
-                          portfolioController.text = value;
-                        });
-                      },
-                      validator: (value) {
-                        if (value == null || value.isEmpty) {
-                          return "Enter Portfolio URL First..";
-                        }
-                        return null;
-                      },
-                    ),
-
-                    CustomTextFormField(
                       controller: instagramController,
                       hintText: "Enter Your Instagram Link URL",
                       icon: FontAwesomeIcons.instagram,
@@ -183,7 +164,8 @@ class _SocialLinksState extends State<SocialLinks> {
                           //   vertical: 10,
                           // ),
                           padding: EdgeInsets.symmetric(
-                            horizontal:MediaQuery.of(context).size.width * 0.31,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(
