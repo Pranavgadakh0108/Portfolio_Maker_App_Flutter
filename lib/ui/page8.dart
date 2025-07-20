@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page9.dart';
 import 'package:portfolio_creator/widget/custom_date_field.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
+import 'package:provider/provider.dart';
 
 class Awards extends StatefulWidget {
   const Awards({super.key});
@@ -24,6 +26,10 @@ class _AwardsState extends State<Awards> {
 
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -229,6 +235,19 @@ class _AwardsState extends State<Awards> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          setProfileDataProvider.setHaveAward(_haveAward);
+                          setProfileDataProvider.setAwardName(
+                            awardNameController.text,
+                          );
+                          setProfileDataProvider.setAwardOrgName(
+                            awardOrgController.text,
+                          );
+                          setProfileDataProvider.setAwardIsuDate(
+                            selectedAwardIssueDate,
+                          );
+                          setProfileDataProvider.setAwardDesc(
+                            awardDescController.text,
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -246,7 +265,8 @@ class _AwardsState extends State<Awards> {
                           //   vertical: 10,
                           // ),
                           padding: EdgeInsets.symmetric(
-                            horizontal:MediaQuery.of(context).size.width * 0.31,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(

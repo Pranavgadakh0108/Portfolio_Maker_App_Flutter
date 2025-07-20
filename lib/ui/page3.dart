@@ -1,6 +1,10 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/data/appdata.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page4.dart';
+import 'package:provider/provider.dart';
 
 class SkillsPage extends StatefulWidget {
   const SkillsPage({super.key});
@@ -10,11 +14,44 @@ class SkillsPage extends StatefulWidget {
 }
 
 class _SkillsPageState extends State<SkillsPage> {
-  List<bool?> selectedValues = List<bool?>.filled(skills.length, false);
-  List<String> selectedSkills = [];
-  String? selectedRatings;
+  late List<bool?> selectedValues;
+  late List<String> selectedSkills;
+  late String skillsJson;
+  late List<String?> selectedRatings;
+  late String ratingsJson;
+
+  @override
+  void initState() {
+    super.initState();
+    selectedValues = List<bool?>.filled(skills.length, false);
+    selectedSkills = [];
+    selectedRatings = List<String?>.filled(skills.length, null);
+    _updateJsonData();
+  }
+
+  void _updateJsonData() {
+    setState(() {
+      // Create a map of selected skills with their ratings
+      final Map<String, String?> skillsWithRatings = {};
+      for (int i = 0; i < skills.length; i++) {
+        if (selectedValues[i] == true) {
+          skillsWithRatings[skills[i]] = selectedRatings[i];
+        }
+      }
+      skillsJson = jsonEncode(skillsWithRatings);
+      ratingsJson = jsonEncode(
+        selectedRatings.where((r) => r != null).toList(),
+      );
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -27,10 +64,7 @@ class _SkillsPageState extends State<SkillsPage> {
           ),
         ),
         leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: Colors.white,
-          ), // Custom back icon
+          icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.white),
           onPressed: () => Navigator.pop(context),
         ),
         backgroundColor: Colors.purple,
@@ -77,9 +111,13 @@ class _SkillsPageState extends State<SkillsPage> {
                           onChanged: (value) {
                             setState(() {
                               selectedValues[index] = value;
-                              selectedValues[index] ?? false
-                                  ? selectedSkills.add(skill)
-                                  : selectedSkills.remove(skill);
+                              if (value == true) {
+                                selectedSkills.add(skill);
+                              } else {
+                                selectedSkills.remove(skill);
+                                selectedRatings[index] = null;
+                              }
+                              _updateJsonData();
                             });
                           },
                         ),
@@ -89,10 +127,11 @@ class _SkillsPageState extends State<SkillsPage> {
                               return RadioListTile<String>(
                                 title: Text(rating),
                                 value: rating,
-                                groupValue: selectedRatings,
+                                groupValue: selectedRatings[index],
                                 onChanged: (value) {
                                   setState(() {
-                                    selectedRatings = value;
+                                    selectedRatings[index] = value;
+                                    _updateJsonData();
                                   });
                                 },
                                 activeColor: Colors.purple,
@@ -109,6 +148,10 @@ class _SkillsPageState extends State<SkillsPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  // Save data to provider before navigation
+                  setProfileDataProvider.setSkills(skillsJson);
+                  setProfileDataProvider.setRatings(ratingsJson);
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => EducationDetails()),
@@ -119,10 +162,6 @@ class _SkillsPageState extends State<SkillsPage> {
                   foregroundColor: Colors.white,
                 ),
                 child: Padding(
-                  // padding: const EdgeInsets.symmetric(
-                  //   horizontal: 130,
-                  //   vertical: 10,
-                  // ),
                   padding: EdgeInsets.symmetric(
                     horizontal: MediaQuery.of(context).size.width * 0.31,
                     vertical: 10,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:intl/intl.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page8.dart';
 import 'package:portfolio_creator/widget/custom_date_field.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
+import 'package:provider/provider.dart';
 
 class Certifications extends StatefulWidget {
   const Certifications({super.key});
@@ -25,6 +27,10 @@ class _CetificationsState extends State<Certifications> {
 
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -249,6 +255,24 @@ class _CetificationsState extends State<Certifications> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          setProfileDataProvider.setHaveCertificate(
+                            _haveCertificate,
+                          );
+                          setProfileDataProvider.setCertificateName(
+                            certificateNameController.text,
+                          );
+                          setProfileDataProvider.setOrganizationName(
+                            certificateOrgController.text,
+                          );
+                          setProfileDataProvider.setIssueDate(
+                            selectedIssueDate,
+                          );
+                          setProfileDataProvider.setCertificateUrl(
+                            certificateUrlController.text,
+                          );
+                          setProfileDataProvider.setCertificateDescription(
+                            certificateDescController.text,
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Awards()),
@@ -264,7 +288,8 @@ class _CetificationsState extends State<Certifications> {
                           //   vertical: 10,
                           // ),
                           padding: EdgeInsets.symmetric(
-                            horizontal:MediaQuery.of(context).size.width * 0.31,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(

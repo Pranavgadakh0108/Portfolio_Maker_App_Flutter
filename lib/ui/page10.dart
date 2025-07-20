@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/data/appdata.dart';
+import 'package:portfolio_creator/models/profile_data_model.dart';
+import 'package:portfolio_creator/provider/profile_data_provider.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
+import 'package:portfolio_creator/ui/profile_page.dart';
 import 'package:portfolio_creator/widget/custom_dropdown.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
+import 'package:provider/provider.dart';
 
 class ContactScreen extends StatefulWidget {
   const ContactScreen({super.key});
@@ -18,6 +23,15 @@ class _ContactScreenState extends State<ContactScreen> {
   final GlobalKey<FormState> _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
+
+    final profileDataProvider = Provider.of<ProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -112,12 +126,79 @@ class _ContactScreenState extends State<ContactScreen> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => ContactScreen(),
-                        ),
+                      setProfileDataProvider.setAvailability(
+                        selectedAvailabilty,
                       );
+                      setProfileDataProvider.setContactMethod(
+                        selectedContactMethod,
+                      );
+                      setProfileDataProvider.setCoverLetter(
+                        coverLetterController.text,
+                      );
+
+                      final profile = ProfileDataModel(
+                        //profilePhoto: setProfileDataProvider.profilePhoto,
+                        fullName: setProfileDataProvider.fullName,
+                        profession: setProfileDataProvider.profession,
+                        bio: setProfileDataProvider.bio,
+                        mobileNumber: setProfileDataProvider.mobileNumber,
+                        address: setProfileDataProvider.address,
+                        linkedin: setProfileDataProvider.linkedin,
+                        github: setProfileDataProvider.github,
+                        instagram: setProfileDataProvider.instagram,
+                        twitter: setProfileDataProvider.twitter,
+                        skills: setProfileDataProvider.skills,
+                        ratings: setProfileDataProvider.ratings,
+                        degree: setProfileDataProvider.degree,
+                        college: setProfileDataProvider.college,
+                        startYear: setProfileDataProvider.startYear,
+                        endYear: setProfileDataProvider.endYear,
+                        experience: setProfileDataProvider.experience,
+                        achievement: setProfileDataProvider.achievement,
+                        hasExperience: setProfileDataProvider.hasExperience,
+                        jobTitle: setProfileDataProvider.jobTitle,
+                        companyName: setProfileDataProvider.companyName,
+                        startDate: setProfileDataProvider.startDate,
+                        endDate: setProfileDataProvider.endDate,
+                        companyLocation: setProfileDataProvider.companyLocation,
+                        responsibilities:
+                            setProfileDataProvider.responsibilities,
+                        projectTitle: setProfileDataProvider.projectTitle,
+                        projectDescription:
+                            setProfileDataProvider.projectDescription,
+                        projectTechstack:
+                            setProfileDataProvider.projectTechstack,
+                        projectUrl: setProfileDataProvider.projectUrl,
+                        projectImg: setProfileDataProvider.projectImg,
+                        haveCertificate: setProfileDataProvider.haveCertificate,
+                        certificateName: setProfileDataProvider.certificateName,
+                        organizationName:
+                            setProfileDataProvider.organizationName,
+                        issueDate: setProfileDataProvider.issueDate,
+                        certificateUrl: setProfileDataProvider.certificateUrl,
+                        certificateDescription:
+                            setProfileDataProvider.certificateDescription,
+                        haveAward: setProfileDataProvider.haveAward,
+                        awardName: setProfileDataProvider.awardName,
+                        awardOrgName: setProfileDataProvider.awardOrgName,
+                        awardIsuDate: setProfileDataProvider.awardIsuDate,
+                        awardDesc: setProfileDataProvider.awardDesc,
+                        //hobbies: setProfileDataProvider.hobbies,
+                        availability: setProfileDataProvider.availability,
+                        contactMethod: setProfileDataProvider.contactMethod,
+                        coverLetter: setProfileDataProvider.coverLetter,
+                      );
+
+                      profileDataProvider
+                          .insertPortfolioProfile(context, profile)
+                          .then((_) {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProfilePage(),
+                              ),
+                            );
+                          });
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.purple.shade500,
@@ -132,7 +213,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         horizontal: MediaQuery.of(context).size.width * 0.31,
                         vertical: 10,
                       ),
-                      child: Text("Next Page", style: TextStyle(fontSize: 13)),
+                      child: Text("Submit", style: TextStyle(fontSize: 13)),
                     ),
                   ),
                 ),

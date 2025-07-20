@@ -25,7 +25,7 @@ class DatabaseHelper {
     );
 
     await db.execute('''
-      CREATE TABLE profile(id INTEGER PRIMARY KEY AUTOINCREMENT, profile_photo TEXT, full_name TEXT, profession TEXT, bio TEXT, mobile_number TEXT, address TEXT, linkedin TEXT, github TEXT, instagram TEXT, twitter TEXT)
+      CREATE TABLE profile(id INTEGER PRIMARY KEY AUTOINCREMENT, profile_photo TEXT, full_name TEXT, profession TEXT, bio TEXT, mobile_number TEXT, address TEXT, linkedin TEXT, github TEXT, instagram TEXT, twitter TEXT, skills TEXT, ratings TEXT, degree TEXT, college TEXT, start_year TEXT, end_year TEXT, experience TEXT, achievement TEXT, has_experience TEXT, job_title TEXT, company_name TEXT, start_date TEXT, end_date TEXT, company_location TEXT, responsibilities TEXT, project_title TEXT, project_description TEXT, project_techstack TEXT, project_url TEXT, project_img TEXT, have_certificate TEXT, certificate_name TEXT, organization_name TEXT, issue_date TEXT, certificate_url TEXT, certificate_description TEXT, have_award TEXT, award_name TEXT, award_org_name TEXT, award_isu_date TEXT, award_desc TEXT, hobbies TEXT, availability TEXT, contact_method TEXT, cover_letter TEXT)
     ''');
   }
 
@@ -90,7 +90,7 @@ class DatabaseHelper {
     return client.query('profile');
   }
 
-  Future<Map<String, dynamic>?> getProfileById(String id) async {
+  Future<Map<String, dynamic>?> getProfileById(int id) async {
     var client = await db;
     final result = await client.query(
       'profile',
@@ -103,10 +103,7 @@ class DatabaseHelper {
     return null;
   }
 
-  Future<int> updateProfile(
-    String id,
-    Map<String, dynamic> updateProfile,
-  ) async {
+  Future<int> updateProfile(int id, Map<String, dynamic> updateProfile) async {
     var client = await db;
     return client.update(
       'profile',
@@ -116,7 +113,7 @@ class DatabaseHelper {
     );
   }
 
-  Future<int> deleteProfile(String id) async {
+  Future<int> deleteProfile(int id) async {
     var client = await db;
     return client.delete('profile', where: 'id=?');
   }

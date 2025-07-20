@@ -1,7 +1,11 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_creator/data/appdata.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page10.dart';
+import 'package:provider/provider.dart';
 
 class HobbiesPage extends StatefulWidget {
   const HobbiesPage({super.key});
@@ -11,8 +15,9 @@ class HobbiesPage extends StatefulWidget {
 }
 
 class _HobbiesPageState extends State<HobbiesPage> {
-  List<bool> selectedValues = List<bool>.filled(hobbies.length, false);
+  late List<bool> selectedValues;
   List<String> selectedHobbies = [];
+  late String hobbiesJson;
 
   final List<IconData> hobbyIcons = [
     FontAwesomeIcons.code,
@@ -34,7 +39,24 @@ class _HobbiesPageState extends State<HobbiesPage> {
   ];
 
   @override
+  void initState() {
+    super.initState();
+    selectedValues = List<bool>.filled(hobbies.length, false);
+    hobbiesJson = jsonEncode(selectedHobbies);
+  }
+
+  void _updateHobbiesJson() {
+    setState(() {
+      hobbiesJson = jsonEncode(selectedHobbies);
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -99,6 +121,7 @@ class _HobbiesPageState extends State<HobbiesPage> {
                           } else {
                             selectedHobbies.remove(hobby);
                           }
+                          _updateHobbiesJson();
                         });
                       },
                       child: Padding(
@@ -142,6 +165,7 @@ class _HobbiesPageState extends State<HobbiesPage> {
                                     } else {
                                       selectedHobbies.remove(hobby);
                                     }
+                                    _updateHobbiesJson();
                                   });
                                 }
                               },
@@ -160,6 +184,11 @@ class _HobbiesPageState extends State<HobbiesPage> {
             Center(
               child: ElevatedButton(
                 onPressed: () {
+                  // You can access the JSON string here:
+                  print('Hobbies JSON: $hobbiesJson');
+
+                  setProfileDataProvider.setHobbies(hobbiesJson);
+
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => ContactScreen()),

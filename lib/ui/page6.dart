@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page7.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
 import 'package:portfolio_creator/widget/project_img.dart';
+import 'package:provider/provider.dart';
 
 class Projects extends StatefulWidget {
   const Projects({super.key});
@@ -20,6 +22,10 @@ class _ProjectsState extends State<Projects> {
 
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -160,6 +166,10 @@ class _ProjectsState extends State<Projects> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          setProfileDataProvider.setProjectTitle(projectNameController.text);
+                          setProfileDataProvider.setProjectDescription(projDescController.text);
+                          setProfileDataProvider.setProjectTechstack(techStackController.text);
+                          setProfileDataProvider.setProjectUrl(projectUrlController.text);
                           Navigator.push(
                             context,
                             MaterialPageRoute(
@@ -177,7 +187,8 @@ class _ProjectsState extends State<Projects> {
                           //   vertical: 10,
                           // ),
                           padding: EdgeInsets.symmetric(
-                            horizontal:MediaQuery.of(context).size.width * 0.31,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(

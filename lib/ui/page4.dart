@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/data/appdata.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page5.dart';
 import 'package:portfolio_creator/widget/custom_dropdown.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
+import 'package:provider/provider.dart';
 
 class EducationDetails extends StatefulWidget {
   const EducationDetails({super.key});
@@ -21,6 +23,10 @@ class _EducationDetailsState extends State<EducationDetails> {
   final GlobalKey<FormState> _globalKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -166,6 +172,14 @@ class _EducationDetailsState extends State<EducationDetails> {
                 Center(
                   child: ElevatedButton(
                     onPressed: () {
+                      setProfileDataProvider.setDegree(selectedDegree);
+                      setProfileDataProvider.setCollege(selectedCollege);
+                      setProfileDataProvider.setStartYear(startYear);
+                      setProfileDataProvider.setEndYear(endYear);
+                      setProfileDataProvider.setExperience(expController.text);
+                      setProfileDataProvider.setAchievement(
+                        achievementController.text,
+                      );
                       Navigator.push(
                         context,
                         MaterialPageRoute(

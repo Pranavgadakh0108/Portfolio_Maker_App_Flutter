@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/data/appdata.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page2.dart';
 import 'package:portfolio_creator/widget/camera_widget.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
+import 'package:provider/provider.dart';
 
 class PersonalDetails extends StatefulWidget {
   const PersonalDetails({super.key});
@@ -22,6 +24,10 @@ class _PersonalDetailsState extends State<PersonalDetails> {
 
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -81,7 +87,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                     // ),
                     Center(
                       child: SizedBox(
-                        height: MediaQuery.of(context).size.height *0.15,
+                        height: MediaQuery.of(context).size.height * 0.15,
                         width: MediaQuery.of(context).size.width * 0.3,
                         child: CameraWidget(),
                       ),
@@ -210,6 +216,20 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          setProfileDataProvider.setFullName(
+                            nameController.text,
+                          );
+                          setProfileDataProvider.setProfession(
+                            professionController.text,
+                          );
+                          setProfileDataProvider.setBio(bioController.text);
+                          setProfileDataProvider.setMobileNumber(
+                            mobileController.text,
+                          );
+                          setProfileDataProvider.setAddress(
+                            addressController.text,
+                          );
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(

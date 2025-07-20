@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page3.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
+import 'package:provider/provider.dart';
 
 class SocialLinks extends StatefulWidget {
   const SocialLinks({super.key});
@@ -21,6 +23,11 @@ class _SocialLinksState extends State<SocialLinks> {
 
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
+
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -147,6 +154,19 @@ class _SocialLinksState extends State<SocialLinks> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          setProfileDataProvider.setLinkedIn(
+                            linkedInController.text,
+                          );
+                          setProfileDataProvider.setGithub(
+                            githubController.text,
+                          );
+                          setProfileDataProvider.setInstagram(
+                            instagramController.text,
+                          );
+                          setProfileDataProvider.setTwitter(
+                            twitterController.text,
+                          );
+
                           Navigator.push(
                             context,
                             MaterialPageRoute(

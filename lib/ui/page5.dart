@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
 import 'package:portfolio_creator/ui/page6.dart';
 import 'package:portfolio_creator/widget/custom_date_field.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
+import 'package:provider/provider.dart';
 
 class WorkExperience extends StatefulWidget {
   const WorkExperience({super.key});
@@ -26,6 +28,10 @@ class _WorkExperienceState extends State<WorkExperience> {
 
   @override
   Widget build(BuildContext context) {
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
@@ -284,6 +290,25 @@ class _WorkExperienceState extends State<WorkExperience> {
                     Center(
                       child: ElevatedButton(
                         onPressed: () {
+                          setProfileDataProvider.setHasExperience(
+                            _hasExperience,
+                          );
+                          setProfileDataProvider.setJobTitle(
+                            jobTitleController.text,
+                          );
+                          setProfileDataProvider.setCompanyName(
+                            companyNameController.text,
+                          );
+                          setProfileDataProvider.setStartDate(
+                            selectedStartDate,
+                          );
+                          setProfileDataProvider.setEndDate(selectedEndDate);
+                          setProfileDataProvider.setCompanyLocation(
+                            locationController.text,
+                          );
+                          setProfileDataProvider.setResponsibilities(
+                            responsibilitiesController.text,
+                          );
                           Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => Projects()),
@@ -299,7 +324,8 @@ class _WorkExperienceState extends State<WorkExperience> {
                           //   vertical: 10,
                           // ),
                           padding: EdgeInsets.symmetric(
-                            horizontal:MediaQuery.of(context).size.width * 0.31,
+                            horizontal:
+                                MediaQuery.of(context).size.width * 0.31,
                             vertical: 10,
                           ),
                           child: Text(
