@@ -183,7 +183,7 @@ class _ContactScreenState extends State<ContactScreen> {
                         awardOrgName: setProfileDataProvider.awardOrgName,
                         awardIsuDate: setProfileDataProvider.awardIsuDate,
                         awardDesc: setProfileDataProvider.awardDesc,
-                        //hobbies: setProfileDataProvider.hobbies,
+                        hobbies: setProfileDataProvider.hobbies,
                         availability: setProfileDataProvider.availability,
                         contactMethod: setProfileDataProvider.contactMethod,
                         coverLetter: setProfileDataProvider.coverLetter,
