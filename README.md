@@ -20,6 +20,8 @@ A fully customizable Flutter app that helps users build their professional portf
 - **Flutter**: Cross-platform mobile framework
 - **Dart**: Primary programming language
 - **Google Fonts, FontAwesome, ImagePicker, etc.**: For UI enhancements
+- **Sqflite**: Database
+- **Provider**: Global State Management
 
 ## Installation
 - git clone https://github.com/Pranavgadakh0108/Portfolio_Maker_App_Flutter.git
