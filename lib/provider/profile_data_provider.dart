@@ -5,7 +5,7 @@ import 'package:portfolio_creator/database/database_helper.dart';
 import 'package:portfolio_creator/models/profile_data_model.dart';
 
 class ProfileDataProvider extends ChangeNotifier {
-  ProfileDataModel? _profile;
+  ProfileDataModel? _profile = ProfileDataModel();
 
   List<ProfileDataModel?> _profiles = [];
 
@@ -74,38 +74,81 @@ class ProfileDataProvider extends ChangeNotifier {
   //   notifyListeners();
   // }
 
-  Future<void> getAllPortfolioProfileById(int id, BuildContext context) async {
-    try {
-      final data = await databaseHelper.getProfileById(id);
-      if (_profile?.id == id && data != null) {
-        _profile = ProfileDataModel.fromMap(data);
-        notifyListeners();
-      } else {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text("No Data Availabel")));
-      }
-    } catch (e) {
-      ScaffoldMessenger.of(
-        context,
-      ).showSnackBar(SnackBar(content: Text("Error Occured: $e")));
+  // Future<ProfileDataModel?> getAllPortfolioProfileById(
+  //   int id,
+  //   BuildContext context,
+  // ) async {
+  //   try {
+  //     final data = await databaseHelper.getProfileById(id);
+  //     if (_profile?.id == id && data != null) {
+  //       _profile = ProfileDataModel.fromMap(data);
+  //       notifyListeners();
+  //       return _profile;
+  //     } else {
+  //       ScaffoldMessenger.of(
+  //         context,
+  //       ).showSnackBar(SnackBar(content: Text("No Data Availabel")));
+  //     }
+  //   } catch (e) {
+  //     ScaffoldMessenger.of(
+  //       context,
+  //     ).showSnackBar(SnackBar(content: Text("Error Occured: $e")));
+  //   }
+  //   return null;
+  // }
+
+  Future<ProfileDataModel?> getAllPortfolioProfileById(
+  int id,
+  BuildContext context,
+) async {
+  try {
+    final data = await databaseHelper.getProfileById(id);
+    
+    if (data != null) {
+      _profile = ProfileDataModel.fromMap(data);
+      notifyListeners();
+      return _profile;
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("No Data Available for ID: $id")),
+      );
     }
+  } catch (e) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Error Occurred: $e")),
+    );
   }
+  return null;
+}
 
   Future<void> updateProfileProvider(
     int id,
-    String field,
-    dynamic value,
+    // String field,
+    // dynamic value,
+    Map<String, dynamic> updateProfile,
     BuildContext context,
   ) async {
     try {
-      await databaseHelper.updateProfile(id, {field: value});
+      await databaseHelper.updateProfile(id, updateProfile);
 
       if (_profile?.id == id) {
         final updatedMap = _profile?.toMap();
-        updatedMap?[field] = value;
+        updateProfile.forEach((key, value) {
+          updatedMap?[key] = value;
+        });
 
-        _profile = ProfileDataModel.fromMap(updatedMap!);
+        _profile = ProfileDataModel.fromMap(updatedMap ?? {});
+
+        final index = _profiles.indexWhere((p) => p?.id == id);
+
+        if (index != -1) {
+          final updatedMap = _profiles[index]?.toMap();
+          updateProfile.forEach((key, value) {
+            updatedMap?[key] = value;
+          });
+          _profiles[index] = ProfileDataModel.fromJson(updatedMap ?? {});
+        }
+
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text("Profile Updated Successfully")));
@@ -124,9 +167,12 @@ class ProfileDataProvider extends ChangeNotifier {
 
   Future<void> deletePortfolioProfile(int id, BuildContext context) async {
     try {
-      await databaseHelper.deleteProfile(id);
-      if (_profile != null || _profile?.id == id) {
+      int result = await databaseHelper.deleteProfile(id);
+      if (result >= 0) {
         _profile = null;
+        _profiles.removeWhere((profile) {
+          return profile?.id == id;
+        });
         notifyListeners();
       } else {
         ScaffoldMessenger.of(

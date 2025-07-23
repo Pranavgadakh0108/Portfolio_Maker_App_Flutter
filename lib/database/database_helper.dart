@@ -115,7 +115,7 @@ class DatabaseHelper {
 
   Future<int> deleteProfile(int id) async {
     var client = await db;
-    return client.delete('profile', where: 'id=?');
+    return client.delete('profile', where: 'id=?', whereArgs: [id]);
   }
 
   //close database/ database cleanup
