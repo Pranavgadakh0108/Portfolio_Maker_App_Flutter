@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_creator/data/appdata.dart';
 import 'package:portfolio_creator/database/database_helper.dart';
 import 'package:portfolio_creator/ui/myhome_page.dart';
-import 'package:portfolio_creator/ui/profile_page.dart';
+import 'package:portfolio_creator/ui/navigation_screen.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
 import 'package:portfolio_creator/widget/custom_password.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -48,7 +48,7 @@ class _LoginPageState extends State<LoginPage> {
         ).showSnackBar(SnackBar(content: Text('You are Logged In..!!')));
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => ProfilePage()),
+          MaterialPageRoute(builder: (context) => NavigationScreen()),
         );
       } else {
         ScaffoldMessenger.of(

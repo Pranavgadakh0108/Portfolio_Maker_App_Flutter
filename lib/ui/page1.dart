@@ -223,6 +223,7 @@ class _PersonalDetailsState extends State<PersonalDetails> {
                             professionController.text,
                           );
                           setProfileDataProvider.setBio(bioController.text);
+                          setProfileDataProvider.setEmail(emailController.text);
                           setProfileDataProvider.setMobileNumber(
                             mobileController.text,
                           );

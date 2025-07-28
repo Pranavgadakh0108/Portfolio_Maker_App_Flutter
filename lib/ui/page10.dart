@@ -3,7 +3,7 @@ import 'package:portfolio_creator/data/appdata.dart';
 import 'package:portfolio_creator/models/profile_data_model.dart';
 import 'package:portfolio_creator/provider/profile_data_provider.dart';
 import 'package:portfolio_creator/provider/set_profile_data.dart';
-import 'package:portfolio_creator/ui/view_profile.dart';
+import 'package:portfolio_creator/ui/navigation_screen.dart';
 import 'package:portfolio_creator/widget/custom_dropdown.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
 import 'package:provider/provider.dart';
@@ -137,10 +137,11 @@ class _ContactScreenState extends State<ContactScreen> {
                       );
 
                       final profile = ProfileDataModel(
-                        //profilePhoto: setProfileDataProvider.profilePhoto,
+                        profilePhoto: setProfileDataProvider.profilePhoto,
                         fullName: setProfileDataProvider.fullName,
                         profession: setProfileDataProvider.profession,
                         bio: setProfileDataProvider.bio,
+                        email: setProfileDataProvider.email,
                         mobileNumber: setProfileDataProvider.mobileNumber,
                         address: setProfileDataProvider.address,
                         linkedin: setProfileDataProvider.linkedin,
@@ -195,7 +196,7 @@ class _ContactScreenState extends State<ContactScreen> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => ViewProfile(),
+                                builder: (context) => NavigationScreen(),
                               ),
                             );
                           });

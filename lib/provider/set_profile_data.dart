@@ -11,6 +11,7 @@ class SetProfileDataProvider extends ChangeNotifier {
   String? get fullName => _profile.fullName;
   String? get profession => _profile.profession;
   String? get bio => _profile.bio;
+  String? get email => _profile.email;
   String? get mobileNumber => _profile.mobileNumber;
   String? get address => _profile.address;
   String? get linkedin => _profile.linkedin;
@@ -90,6 +91,11 @@ class SetProfileDataProvider extends ChangeNotifier {
 
   void setBio(String? value) {
     _profile.bio = value;
+    notifyListeners();
+  }
+
+  void setEmail(String? value){
+    _profile.email = value;
     notifyListeners();
   }
 

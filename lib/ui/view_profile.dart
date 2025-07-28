@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/provider/profile_data_provider.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
+import 'package:portfolio_creator/ui/portfolio.dart';
 import 'package:portfolio_creator/ui/update_data.dart';
 import 'package:provider/provider.dart';
 
@@ -34,43 +38,49 @@ class _ViewProfileState extends State<ViewProfile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        title: Text(
-          'Portfolio Maker',
-          style: TextStyle(
-            fontSize: 18,
-            fontWeight: FontWeight.w600,
-            color: Colors.white,
-          ),
-        ),
-        leading: IconButton(
-          icon: Icon(
-            Icons.arrow_back_ios_new_outlined,
-            color: Colors.white,
-          ), // Custom back icon
-          onPressed: () => Navigator.pop(context),
-        ),
-        backgroundColor: Colors.purple,
-        elevation: 5,
-        centerTitle: true,
-      ),
-      body: Consumer<ProfileDataProvider>(
-        builder: (context, provider, _) {
-          return _isLoading
-              ? Center(child: CircularProgressIndicator())
-              : provider.profiles.isEmpty
-              ? Center(child: Text('No Profiles Available'))
-              : SafeArea(
-                  child: ListView.builder(
-                    itemCount: provider.profiles.length,
-                    itemBuilder: (context, index) {
-                      final profile = provider.profiles[index];
-                      return Padding(
-                        padding: const EdgeInsets.all(8.0),
+    final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
+    return Consumer<ProfileDataProvider>(
+      builder: (context, provider, _) {
+        return _isLoading
+            ? Center(child: CircularProgressIndicator())
+            : provider.profiles.isEmpty
+            ? Center(child: Text('No Profiles Available'))
+            : SafeArea(
+                child: ListView.builder(
+                  itemCount: provider.profiles.length,
+                  itemBuilder: (context, index) {
+                    final profile = provider.profiles[index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: GestureDetector(
+                        onTap: () {
+                          setProfileDataProvider.setID(profile?.id ?? 0);
+
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  Portfolio(id: profile?.id ?? 0),
+                            ),
+                          );
+                        },
                         child: Card(
                           child: ListTile(
+                            leading: profile?.profilePhoto == null
+                                ? Icon(
+                                    Icons.person,
+                                    size: 40,
+                                    color: Colors.grey,
+                                  )
+                                : ClipRRect(
+                                    borderRadius: BorderRadius.circular(100),
+                                    child: Image.file(
+                                      File(profile?.profilePhoto ?? ""),
+                                    ),
+                                  ),
                             title: Text(
                               profile?.fullName ?? "Null values found",
                             ),
@@ -102,12 +112,12 @@ class _ViewProfileState extends State<ViewProfile> {
                             ),
                           ),
                         ),
-                      );
-                    },
-                  ),
-                );
-        },
-      ),
+                      ),
+                    );
+                  },
+                ),
+              );
+      },
     );
   }
 }

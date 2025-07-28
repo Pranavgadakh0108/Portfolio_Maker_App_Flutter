@@ -4,7 +4,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:portfolio_creator/ui/login_page.dart';
-import 'package:portfolio_creator/ui/profile_page.dart';
+import 'package:portfolio_creator/ui/navigation_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -19,6 +19,7 @@ class _SplashScreenState extends State<SplashScreen>
   late AnimationController _controller;
   late Animation<double> _opacityAnimation;
   late Animation<double> _scaleAnimation;
+  Timer? _navigationTimer;
 
   @override
   void initState() {
@@ -64,9 +65,18 @@ class _SplashScreenState extends State<SplashScreen>
     } else {
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => ProfilePage()),
+        MaterialPageRoute(builder: (context) => NavigationScreen()),
       );
     }
+  }
+
+   @override
+  void dispose() {
+    // Cancel the timer if it's still active
+    _navigationTimer?.cancel();
+    // Dispose the animation controller
+    _controller.dispose();
+    super.dispose();
   }
 
   @override

@@ -1,7 +1,11 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:portfolio_creator/provider/set_profile_data.dart';
+import 'package:provider/provider.dart';
 
 class CameraWidget extends StatefulWidget {
   const CameraWidget({super.key});
@@ -13,18 +17,27 @@ class CameraWidget extends StatefulWidget {
 class _CameraWidgetState extends State<CameraWidget> {
   XFile? imageFile;
   ImagePicker imagePicker = ImagePicker();
+  String? imagePath;
 
   Future<String> captureImage() async {
+    
     final pickedImage = await imagePicker.pickImage(
       source: ImageSource.camera,
       preferredCameraDevice: CameraDevice.rear,
     );
+     final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     if (pickedImage != null) {
       setState(() {
         imageFile = pickedImage;
+        imagePath = pickedImage.path;
+        setProfileDataProvider.setProfilePhoto(imagePath);
       });
       return imageFile?.path ?? "";
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('"No Image Captured"')));
       return "No Image Captured";
     }
   }
@@ -33,12 +46,19 @@ class _CameraWidgetState extends State<CameraWidget> {
     final pickedImage = await imagePicker.pickImage(
       source: ImageSource.gallery,
     );
+     final setProfileDataProvider = Provider.of<SetProfileDataProvider>(
+      context,
+      listen: false,
+    );
     if (pickedImage != null) {
       setState(() {
         imageFile = pickedImage;
+        imagePath = pickedImage.path;
+        setProfileDataProvider.setProfilePhoto(imagePath);
       });
       return imageFile?.path ?? "";
     } else {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('"No Image Captured"')));
       return "No Image Picked";
     }
   }

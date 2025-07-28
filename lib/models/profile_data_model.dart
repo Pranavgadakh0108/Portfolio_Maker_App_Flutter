@@ -4,6 +4,7 @@ class ProfileDataModel {
   String? fullName;
   String? profession;
   String? bio;
+  String? email;
   String? mobileNumber;
   String? address;
   String? linkedin;
@@ -67,6 +68,7 @@ class ProfileDataModel {
     this.fullName,
     this.profession,
     this.bio,
+    this.email,
     this.mobileNumber,
     this.address,
     this.linkedin,
@@ -125,6 +127,7 @@ class ProfileDataModel {
       fullName: map['full_name'],
       profession: map['profession'],
       bio: map['bio'],
+      email: map['email'],
       mobileNumber: map['mobile_number'],
       address: map['address'],
       linkedin: map['linkedin'],
@@ -132,13 +135,13 @@ class ProfileDataModel {
       instagram: map['instagram'],
       twitter: map['twitter'],
 
-      skills: map['skillss'],
+      skills: map['skills'],
       ratings: map['ratings'],
 
       degree: map['degree'],
       college: map['college'],
       startYear: map['start_year'],
-      endYear: map['end-year'],
+      endYear: map['end_year'],
       experience: map['experience'],
       achievement: map['achievement'],
 
@@ -184,6 +187,7 @@ class ProfileDataModel {
       'full_name': fullName,
       'profession': profession,
       'bio': bio,
+      'email':email,
       'mobile_number': mobileNumber,
       'address': address,
       'linkedin': linkedin,
