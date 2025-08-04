@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_creator/models/profile_data_model.dart';
 import 'package:portfolio_creator/provider/profile_data_provider.dart';
+import 'package:portfolio_creator/ui/navigation_screen.dart';
 //import 'package:portfolio_creator/provider/set_profile_data.dart';
-import 'package:portfolio_creator/ui/view_profile.dart';
 //import 'package:portfolio_creator/widget/camera_widget.dart';
 import 'package:portfolio_creator/widget/custom_form_field.dart';
 import 'package:provider/provider.dart';
@@ -96,7 +96,7 @@ class _UpdateDataState extends State<UpdateData> {
         .then((_) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => ViewProfile()),
+            MaterialPageRoute(builder: (context) => NavigationScreen()),
           );
         });
   }
